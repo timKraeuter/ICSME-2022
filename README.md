@@ -12,3 +12,6 @@ Follow the [screencast](https://www.youtube.com/) doing the following steps:
 5. Start debugging and activate the Visual Debugger in the Visual Debugger tool window.
 6. Open the Visual Debugger tool by clicking on the "Launch user interface" button in the Visual Debugger tool window.
 7. Enjoy the Visual Debugger tool.
+
+# Further resources
+More information about the tool including screenshots can be found at the [tool plugin page](https://plugins.jetbrains.com/plugin/16851-visual-debugger) in the IntelliJ IDEA marketplace.
