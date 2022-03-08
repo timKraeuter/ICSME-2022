@@ -10,6 +10,8 @@
 % My packages start
 \usepackage{hyperref}
 \usepackage{glossaries}
+\usepackage{cleveref} % Reference footnotes.
+\crefformat{footnote}{#2\footnotemark[#1]#3}
 % TODO: Use flushend if needed.
 % \usepackage{flushend} % Balances columns on the last page.
 
@@ -141,7 +143,7 @@ Our tool is one of many visual debugging tools, but we aimed for excellent usabi
 In addition, our tool is straightforward and non-intrusive, i.e., it complements textual debugging.
 The goal of our tool is to make debugging during software development as efficient as possible to increase software developer productivity.
 
-Using our visual debugger tool, we obtain the object diagram\footnote{A demonstration of the visual debugger tool resulting in this object diagram is described at \url{https://github.com/timKraeuter/ICSME-2022} and in the screencast \screencast} shown in \autoref{fig:visualDebuggerVariables}, which contains the same objects and level of detail as \autoref{fig:variablesIntellij}.
+Using our visual debugger tool, we obtain the object diagram\footnote{\label{footnote:artifacts} Source code, a screencast demonstrating the visual debugger tool and more can be found at \url{https://github.com/timKraeuter/ICSME-2022}.} shown in \autoref{fig:visualDebuggerVariables}, which contains the same objects and level of detail as \autoref{fig:variablesIntellij}.
 
 \begin{figure}[h]
     \centering
@@ -183,10 +185,11 @@ In addition, the debugging component offers a method to load detailed informatio
 Second, the \textit{visualization component} represents the debugging information as an object diagram to ease program understanding.
 Moreover, it allows interaction to load additional debugging information for the currently shown objects.
 The visualization component is \emph{browser-based} and relies on a fixed \emph{Visual Debugging \gls*{api}}.
-Consequently, it can be reused as a front end for visual debugging tools integrated into any \gls*{ide}.
+Consequently, we could implement a debugging component for a different \gls*{ide}, such as Eclipse, and reuse the visualization component.
+Furthermore, the visualization component is independent of the underlying object-oriented programming, in our case Java, and could even be reused in a visual debugger for other  languages.
 
 % Explain the Debugging API
-The Visual Debugging \gls*{api}\footnote{The Visual Debugging \gls*{api} is described in full detail at \url{https://github.com/timKraeuter/VisualDebugger/tree/master/documentation\#visual-debugging-api}.} is based on \emph{WebSocket} to achieve live updates about changes in the debugging information, see \autoref{fig:api}.
+The \textit{Visual Debugging \gls*{api}}\cref{footnote:artifacts} is based on \emph{WebSocket} to allow live updates about changes in the debugging information, see \autoref{fig:api}.
 
 \begin{figure}[h]
     \centering
@@ -195,9 +198,10 @@ The Visual Debugging \gls*{api}\footnote{The Visual Debugging \gls*{api} is desc
     \label{fig:api}
 \end{figure}
 
-Initially, a browser connects to the WebSocket server hosting the Debugger \gls*{api} included in our Visual Debugger plugin.
-Afterward, the browser is updated live about new debugging information due to debugging actions in the \gls*{ide}, such as hitting a breakpoint or jumping to the next line in the source code.
+Initially, a browser connects to the WebSocket server hosting the Debugger \gls*{api}, for example the server included in our Visual Debugger plugin.
+Afterward, the browser is updated in real-time about new debugging information due to debugging actions in the \gls*{ide}, such as hitting a breakpoint or jumping to the next line in the source code.
 In addition, the visualization component allows a user to interact with the visualization to load all direct children and attributes of any shown object.
+Both components are open-source\cref{footnote:artifacts} and put together result in the visual debugger tool.
 
 \section{Related work} \label{sec:relatedWork}
 Visual debugging has been researched since the 90s \cite{baeza-yatesVisualDebuggingAutomatic1996, jerdingUsingVisualizationFoster1994, mukherjeaVisualDebuggingIntegrating1994, hansonSimpleExtensibleGraphical1997}, but most of the resulting tools are outdated by now.
