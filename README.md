@@ -15,5 +15,5 @@ Follow the [screencast](https://www.youtube.com/) doing the following steps:
 
 # Further resources
 - More information about the tool including screenshots can be found at the [tool plugin page](https://plugins.jetbrains.com/plugin/16851-visual-debugger) in the IntelliJ IDEA marketplace.
-- The visualization component of the Visual Debugger can be found [here](https://github.com/timKraeuter/object-diagram-modeler).
+- The **visualization component** of the Visual Debugger can be found [here](https://github.com/timKraeuter/object-diagram-modeler).
 - You can edit object diagrams created during debugging using my [object diagram modeler](https://timkraeuter.com/object-diagram-modeler/).
