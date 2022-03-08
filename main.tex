@@ -77,7 +77,7 @@ tkra@hvl.no}
 % 4 pages + 1 page of only references!
 
 \begin{abstract}
-\emph{Debugging} is a crucial activity in software development to understand control- and data flow in the source code.
+\emph{Debugging} is an important activity in software development to understand control- and data flow in the source code.
 Understanding the source code is a prerequisite to finding and fixing bugs or implementing new desired features. 
 Traditionally information during program runtime is visualized in a textual manner while debugging.
 However, we have developed a novel tool for visualizing program information as object diagrams, which is integrated as a plugin into the popular Java development environment \intellij{}.
@@ -200,7 +200,7 @@ Afterward, the browser is updated live about new debugging information due to de
 In addition, the visualization component allows a user to interact with the visualization to load all direct children and attributes of any shown object.
 
 \section{Related work} \label{sec:relatedWork}
-Visual debugging has been researched since the 90's \cite{baeza-yatesVisualDebuggingAutomatic1996, jerdingUsingVisualizationFoster1994, mukherjeaVisualDebuggingIntegrating1994, hansonSimpleExtensibleGraphical1997} but most of the resulting tools are outdated by now.
+Visual debugging has been researched since the 90s \cite{baeza-yatesVisualDebuggingAutomatic1996, jerdingUsingVisualizationFoster1994, mukherjeaVisualDebuggingIntegrating1994, hansonSimpleExtensibleGraphical1997}, but most of the resulting tools are outdated by now.
 We will now describe some recent visual debugging tools and compare them to our tool.
 
 % JIVE is comprehensive but the downside is that it offers too much functionality!
@@ -208,9 +208,9 @@ We will now describe some recent visual debugging tools and compare them to our 
 It provides interactive Java program execution visualization at different levels of granularity.
 The program state is visualized as a \gls*{uml} object diagram, while the call stack is represented as a \gls*{uml} sequence diagram.
 \gls*{jive} is tightly coupled to the Eclipse \gls*{ide} and does not integrate with Eclipses debugger but rather is a debugging environment on its own.
-This approach is a major difference to our tool which integrates with the debugging tool of the \gls*{ide}.
-It makes \gls*{jive} powerful but complex since it is hard understand what is going on in the multiple views provided by \gls*{jive}.
-Compared to \gls*{jive} the visual debugger tool focuses only on object diagram visualization which makes it lightweight and straightforward to use.
+This approach is a significant difference to our tool, which integrates with the debugging tool of the \gls*{ide}.
+It makes \gls*{jive} powerful but complex since it is hard to understand what is going on in the multiple views provided by \gls*{jive}.
+Compared to \gls*{jive} the visual debugger tool focuses only on object diagram visualization, which makes it lightweight and straightforward to use.
 In addition, our tool decouples debugging and visualization, such that it can be adopted to different \glspl*{ide} even based on other object-oriented programming languages than Java.
 
 % Java Visualizer
@@ -218,7 +218,7 @@ A plugin called \textit{Java Visualizer}\footnote{\url{https://plugins.jetbrains
 It visualizes the call stack and objects contained in the Java heap as a box-and-pointer diagram during a debugging session.
 However, even in simple scenarios, the visualized call stacks are long since all objects from the Java heap are visualized and not only the variables in the debugging scope.
 This leads to much noise in the visualization, especially if one is only interested in the current objects, i.e., the current system state.
-We were inspired by this plugin but our tool tries to improve on it by showing not all the present information and allowing a user to load more relevant information if needed.
+This plugin inspired us, but our tool tries to improve by showing not all the present information and allowing a user to load more relevant information if needed.
 
 % Debugging for distributed applications
 In \cite{kochGraphicalDebuggingDistributed2015}, the authors describe a tool to debug distributed applications.
@@ -231,7 +231,7 @@ The visualization component can then show the different debugging views separate
 \textit{JAVAVIS} is a standalone tool to help students understand program execution in Java \cite{oechsleJAVAVISAutomaticProgram2002}.
 It makes use of object- and sequence diagrams to represent program behavior.
 However, it is not integrated with modern \glspl*{ide} such as Eclipse or \intellij{}.
-Our tool can also help students in learning Java or object-oriented program execution but we currently do not provide a sequence diagram visualization.
+Our tool can also be used to help students to learn Java or object-oriented program execution, but we currently do not provide a sequence diagram visualization.
 
 \section{Conclusion \& future work} \label{sec:conclusion}
 % Conclude
