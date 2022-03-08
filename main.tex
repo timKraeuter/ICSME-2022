@@ -10,6 +10,8 @@
 % My packages start
 \usepackage{hyperref}
 \usepackage{glossaries}
+% TODO: Use flushend if needed.
+% \usepackage{flushend} % Balances columns on the last page.
 
 \newacronym{jive}{JIVE}{Java Interactive Visualization Environment}
 \newacronym{uml}{UML}{Unified Modeling Language}
@@ -70,13 +72,15 @@ tkra@hvl.no}
 
 \maketitle
 
-% TODO: 3-5 Minute screen cast showcasing the tool (Put it on youtube, Maybe with my developer account). Also link that one on the plugin page.
+% TODO: 3-5 Minute screen cast showcasing the tool (Put it on youtube, Maybe with my developer account). Also link that one in the abstract and on the plugin page.
 % 4 pages + 1 page of only references!
 
 \begin{abstract}
-\emph{Debugging} is an important activity in software development to understand control- and data flow and find programming errors.
-Traditionally program information was visualized in a textual manner during debugging.
-However, we have developed a novel tool for visualizing program information as object diagrams, integrated as a plugin into the popular Java development environment \intellij{}.
+\emph{Debugging} is a crucial activity in software development to understand control- and data flow in the source code.
+Understanding the source code is a prerequisite to finding and fixing bugs or implementing new desired features. 
+Traditionally information during program runtime is visualized in a textual manner while debugging.
+However, we have developed a novel tool for visualizing program information as object diagrams, which is integrated as a plugin into the popular Java development environment \intellij{}.
+Our tool is demonstrated in a typical usage scenario here\footnote{\url{https://www.youtube.com/}}.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -84,14 +88,95 @@ Debugging, Visual Debugging, Visual Debugger, Software Visualization, IntelliJ I
 \end{IEEEkeywords}
 
 \section{Introduction}
-Debugging is an essential part of software maintenance and evolution since it allows a software developer to halt the execution of a program at any point and to inspect the current program state.
-Traditionally program information is represented in a textual manner during debugging.
+% Introduce debugging
+Debugging is an essential part of software maintenance and evolution since it allows a software developer to halt the execution of a program at any point to analyze the current program state.
+% Describe why debugging is important/ some typical usage scenarios
+
+% Debugging works on a textual representation of the software
+Traditionally program information is represented in a textual manner during debugging, see \autoref{fig:variablesIntellij}.
+
+% Motivation
+% Software developers spend a lot of time on debugging
 Moreover, software developers spend between 35 and 50 percent of their time validating and debugging software \cite{odellDebuggingMindsetUnderstanding2017}.
 However, a graphical representation might allow for a faster and better understanding of specific scenarios.
+% Make debugging more efficient by a better visualization of the debugging data
 Thus, research to visualize program information graphically during debugging has started, motivated by possible reductions in the time spent during debugging. 
 
+% Introduce my plugin:
+% Integrated in the most popular JAVA-IDE according to some report
+% Visualize program state graphically using object diagrams
 We have developed an \intellij{} plugin\footnote{The plugin can be found at \url{https://plugins.jetbrains.com/plugin/16851-visual-debugger}.}, which visualizes the program state as an object diagram for better program comprehension.
-% Explain the plugin shortly and link to a youtube video. 
+% Explain the plugin shortly and link to a YouTube video. 
+
+% Paper outline
+The remainder of this paper is structured as follows.
+We describe the visual debugger tool in detail (\autoref{sec:toolDescription}) before explaining the tool architecture (\autoref{sec:architecture}).
+Finally, we discuss related work in \autoref{sec:relatedWork} and conclude in \autoref{sec:conclusion}.
+
+\section{Tool description} \label{sec:toolDescription}
+We will describe our tool using the parts list model shown in \autoref{fig:partsListModel}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.48\textwidth]{images/VD-parts list class diagram.pdf}
+    \caption{Parts list class diagram}
+    \label{fig:partsListModel}
+\end{figure}
+
+Program information during debugging is usually represented \textit{textually} in \glspl*{ide}.
+For example, \autoref{fig:variablesIntellij} shows objects during debugging in \intellij{} conforming to the parts list model. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.48\textwidth]{images/variables.png}
+    \caption{Variables during debugging in \intellij}
+    \label{fig:variablesIntellij}
+\end{figure}
+
+We have unfolded the substructure of the \textsf{folding wall table} object to see its components and first component in detail.
+If one is not only interested in one attribute inside one object, but rather the whole object world using the textual representation is cumbersome.
+
+Consequently, research on visual debugging began with the goal to foster program comprehension.
+Our tool is one of many visual debugging tools but we aimed for excellent usability by seamlessly integrating our tool in the debugging process of the \intellij{}.
+In addition, our tool is straight forward and non-intrusive, i.e., it complements textual debugging.
+The goal of our tool is to make debugging during software development as efficient as possible to increase software developer productivity.
+
+Using our visual debugger tool we obtain the object diagram\footnote{A demonstration of the visual debugger tool resulting in this object diagram is described at \url{https://github.com/timKraeuter/ICSME-2022} and in the screencast \url{youtube.com}.} shown in \autoref{fig:visualDebuggerVariables} which contains the same objects and level of detail as \autoref{fig:variablesIntellij}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.48\textwidth]{images/VD-parts list object diagram.pdf}
+    \caption{Visual Debugger visualization comparable to \autoref{fig:variablesIntellij}}
+    \label{fig:visualDebuggerVariables}
+\end{figure}
+% Add and example matching Fig. 1 as an object diagram from the debugger.
+% Link and mention object diagram modeler
+
+% State how many downloads we have atm
+% Introduce the two components but do not describe them here.
+\section{Tool architecture}  \label{sec:architecture}
+Our tool consists of the plugin and the visualization component.
+First, the plugin components integrate with \intellij{} by automatically hooking into any started debugging process of the \gls*{ide}.
+The goal of the plugin component is to obtain the current debugging information from \intellij{} and pass it on to the visualization component.
+In addition, the plugin component offers a method to load detailed information for individual objects in the current debugging scope.
+
+Second, the visualization component represents the debugging information as an object diagram to ease program understanding.
+Moreover, it allows interaction to load additional debugging information for the currently shown objects.
+The visualization component is \emph{browser-based} and relies on a fixed \emph{Visual Debugging \gls*{api}}.
+Consequently, it can be re-used as a front end for visual debugging tools integrated into any \gls*{ide}.
+
+% Explain the Debugging API
+The Visual Debugging \gls*{api}\footnote{The Visual Debugging \gls*{api} is described in full detail at \url{https://github.com/timKraeuter/VisualDebugger/tree/master/documentation\#visual-debugging-api}.} is based on \emph{WebSocket} to achieve live updates about changes in the debugging information, see \autoref{fig:api}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.488\textwidth]{images/VD-architecture.pdf}
+    \caption{Communication through the Debugger API}
+    \label{fig:api}
+\end{figure}
+
+Initially, a browser connects to the WebSocket server hosting the Debugger \gls*{api} included in our Visual Debugger plugin.
+Afterward, the browser is updated live about new debugging information due to debugging actions in the \gls*{ide}, such as hitting a breakpoint or jumping to the next line in the source code.
+In addition, the visualization component allows a user to interact with the visualization to load all direct children and attributes of any shown object.
 
 \section{Related work} \label{sec:relatedWork}
 % JIVE is comprehensive but the downside is that it offers too much functionality!
@@ -104,7 +189,7 @@ A plugin called \textit{Java Visualizer}\footnote{\url{https://plugins.jetbrains
 It visualizes the call stack and objects contained in the Java heap as a box-and-pointer diagram during a debugging session.
 However, even in simple scenarios, the visualized call stacks are long since all objects from the Java heap are visualized and not only the variables in the debugging scope.
 This leads to much noise in the visualization, especially if one is only interested in the current objects, i.e., the current system state.
-Nevertheless, the additional information can be helpful when the program flow must be understood in detail. 
+Nevertheless, the additional information can be helpful when one must understand the the program flow in detail. 
 
 % Debugging for distributed applications
 In \cite{kochGraphicalDebuggingDistributed2015}, the authors describe a tool to debug distributed applications.
@@ -116,38 +201,29 @@ However, we could not find and test the tool by ourselves.
 It makes use of object- and sequence diagrams to represent program behavior.
 
 % Might not need this paragraph is space is limited.
-The idea to visualize textual structures during software development has also been used in the BlueJ \gls*{ide} designed for teaching object orientation \cite{kollingBlueJSystemIts2003,kollingObjectorientedProgramDevelopment1996}.
+The idea to visualize textual structures during software development has also been used in the BlueJ \gls*{ide} designed for teaching object-orientation \cite{kollingBlueJSystemIts2003,kollingObjectorientedProgramDevelopment1996}.
 It uses a class diagram visualizing the application structure.
 One can interact with classes to create objects which are then visualized in an object diagram style.
 
-\section{Tool architecture}
-Our tool consists of the plugin and the visualization component.
-First, the plugin components integrate with \intellij{} by automatically hooking into any started debugging process of the \gls*{ide}.
-The goal of the plugin component is to obtain the current debugging information from \intellij{} and pass it on to the visualization component.
-In addition, the plugin component offers a method to load detailed information for individual objects in the current debugging scope.
+% TODO: What makes our visual debugger unique? Foreshadowing to the main contributions in the conclusion.
 
-Second, the visualization component represents the debugging information as an object diagram to ease program understanding.
-Moreover, it allows interaction to load additional debugging information for the currently shown objects.
-The visualization component is \emph{browser-based} and relies on a fixed \emph{Debugging \gls*{api}}.
-Consequently, it can be re-used as a front end for visual debugging tools integrated into any \gls*{ide}.
+\section{Conclusion \& future work} \label{sec:conclusion}
+% Conclude
+Contributions:
+\begin{enumerate}
+    \item My work is integrated in a modern highly popular (most popular) \gls*{ide} for Java Development. (+ open-source and downloaded many times already)
+    \item Visualization is independent and can be reused for debugging any object-oriented software by implementing the fixed debugging api.
+    \item Usability and up to date. Other tools are highly academical and do a lot but kind of too much for practical usage scenarios. Our focus are software developers.
+\end{enumerate}
 
-% Explain the Debugging API
-The Debugging \gls*{api}\footnote{The Debugging \gls*{api} is described in full detail at \url{https://github.com/timKraeuter/VisualDebugger/tree/master/documentation\#debugging-api}.} is based on \emph{WebSocket} to achieve live updates about changes in the debugging information, see \autoref{fig:api}.
+% Future work based on the plugin
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.48\textwidth]{images/architecture.pdf}
-    \caption{Communication through the Debugger API}
-    \label{fig:api}
-\end{figure}
-
-Initially, a browser connects to the WebSocket server hosting the Debugger \gls*{api} included in our Visual Debugger plugin.
-Afterward, the browser is updated live about new debugging information due to debugging actions in the \gls*{ide}, such as hitting a breakpoint or jumping to the next line in the source code.
-In addition, the visualization component allows a user to interact with the visualization to load all direct children and attributes of any shown object.
-
-\section{Conclusion}
+% Future work somehow connecting to my main line of research?
+\cite{krauterBehavioralConsistencyHeterogeneous2021}
 
 \section*{Acknowledgment}
+
+\newpage
 
 % TODO: check References one by one at the end!
 \bibliographystyle{IEEEtran}
