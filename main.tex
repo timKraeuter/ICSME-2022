@@ -179,7 +179,7 @@ However, it is not possible to explore objects inside the embedded visualization
 % Describe the functionality of the tool, downloads, mention components. Maybe some contributions/differences to other tools?
 
 % State how many downloads we have atm
-The visual debugger tool has 1804 unique downloads\footnote{Last checked on March 8, 2022, see \url{https://plugins.jetbrains.com/plugin/16851-visual-debugger}.} and positive reviews.
+The visual debugger tool has 1804 unique downloads\footnote{\label{footnote:pluginStats}Last checked on March 8, 2022, see \url{https://plugins.jetbrains.com/plugin/16851-visual-debugger}.} and positive reviews.
 It consists of two components, namely the debugging and the visualization component, which we will describe in more detail in the tool architecture section.
 
 \section{Tool architecture}  \label{sec:architecture}
@@ -244,20 +244,29 @@ Our tool can also be used to help students to learn Java or object-oriented prog
 
 \section{Conclusion \& future work} \label{sec:conclusion}
 % Conclude
-Contributions:
-\begin{enumerate}
-    \item My work is integrated with a modern, highly popular (most popular) \gls*{ide} for Java Development. (+ open-source and downloaded many times already)
-    \item Visualization is independent and can be reused for debugging any object-oriented software by implementing the fixed debugging API.
-    \item Usability and up to date. Other tools are highly academic and do a lot but too much for practical usage scenarios. Our focus is on software developers.
-    \item Interaction with the generated object diagrams?
-\end{enumerate}
+The main contribution is the open-source visual debugging tool we have created.
+First, it is integrated in \intellij{}, a modern and popular \gls*{ide} for Java software development.
+According to a recent report\footnote{JVM Ecosystem Report 2021: \url{https://snyk.io/jvm-ecosystem-report-2021/}} over 70\% of JVM developers use \intellij{}.
+In addition, the plugin received good feedback and was downloaded nearly 2000 times already\cref{footnote:pluginStats}.
+Second, the visualization part of the tool is independent, such that it can be reused in other visual debugging tools.
+For example, one could develop a plugin for Eclipse \gls*{ide} or Visual Studio Code in the future.
+Third, we aimed for excellent usability of our tool alongside present debugging tools.
+To do so, our tool starts automatically when debugging in \intellij{} and can be used straight away without any configuration.
+Moreover, we only show a subset of the debugging information in the debugger right away and allow the user to reload more relevant information similarly to the widely adopted textual debuggers.
 
 % Future work based on the plugin
-
+In the future we could like to improve and extend the tool in multiple ways.
+First, we want to do more field testing using our tool to gather feedback on the usability and features of the plugin.
+This should lead to continuous improvement of the tool and greater tool use, which leads to more feedback from practitioners. 
+Especially, the scalability of the tool when debugging large software systems must be investigated.
+The scalability of our visual debugger must be similar to the scalability of present textual debuggers, such that our tool can be adopted in the industry.
+Second, we would like to implement visual debuggers for other \glspl*{ide} and object-oriented programming languages by reusing our visualization component.
+% Third, \cite{krauterBehavioralConsistencyHeterogeneous2021} + cite ECMFA paper.
 % Future work somehow connecting to my main line of research?
-\cite{krauterBehavioralConsistencyHeterogeneous2021}
 
-\section*{Acknowledgment}
+% TODO: Comment in after acceptance and helpful feedback.
+% \section*{Acknowledgment}
+% We want to thank the anonymous reviewers for their valuable comments and helpful suggestions.
 
 \newpage
 
