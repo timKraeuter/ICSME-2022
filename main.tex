@@ -19,6 +19,8 @@
 \newacronym{uml}{UML}{Unified Modeling Language}
 \newacronym{ide}{IDE}{Integrated Development Environment}
 \newacronym{api}{API}{Application Programming Interface}
+\newacronym{mde}{MDE}{Model-driven engineering}
+\newacronym{bpmn}{BPMN}{Business Process Modeling Notation}
 \newcommand{\intellij}{IntelliJ IDEA}
 \newcommand{\screencast}{\url{https://www.youtube.com/}}
 % My packages end
@@ -77,8 +79,8 @@ tkra@hvl.no}
 % Introduction: TODO: Better Motivation
 % Tool description: more or less done check for redundancy/consistency with Tool architecture
 % Tool architecture: more or less done see description.
-% Related work: done, maybe relation to my main work or put that in the conclusion?
-% Conclusion & future work: TBD
+% Related work: done
+% Conclusion & future work: mostly done, expect relation to main work
 
 % TODO: 3-5 Minute screen cast showcasing the tool (Put it on youtube, Maybe with my developer account). Also link that one in the abstract and on the plugin page.
 % 4 pages + 1 page of only references!
@@ -92,29 +94,31 @@ Our tool is demonstrated in a typical usage scenario here\footnote{\screencast}.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Debugging, Visual Debugging, Visual Debugger, Software Visualization, IntelliJ IDEA Plugin
+Debugging, Visual Debugging, Visual Debugger, IntelliJ IDEA Plugin, Software Maintenance/Visualization
 \end{IEEEkeywords}
 
 \section{Introduction}
 % Introduce debugging
-Debugging is an essential part of software maintenance and evolution since it allows a software developer to halt the execution of a program at any point to analyze the current program state.
-% Describe why debugging is important/ some typical usage scenarios
+Debugging is an essential part of software maintenance and evolution since it allows a software developer to analyze a program step by step during execution.
+To achieve this debugging tools are integrated in every modern \gls*{ide} and generally seen as indispensable.
+Debugging is used to understand program control- and data flow such that a software developer can locate and fix reported bugs or extend the program to implement new desired features.
+% Motivation: Reduce the time-spent on debugging by better tooling!
+Thus, debugging is crucial for software maintenance and evolution and software developers spend between 35 and 50 percent of their time validating and debugging software \cite{odellDebuggingMindsetUnderstanding2017}.
+Consequently, 50-75 percent of the total budget of software development projects is used for debugging, testing, and verification \cite{odellDebuggingMindsetUnderstanding2017}.
+We aim to reduce this cost by providing a novel debugging tool to software developers with the goal to better support them during debugging.
+Reduced time-spent on debugging can be used to implement new features, i.e., creating value for customers.
 
 % Debugging works on a textual representation of the software
-Traditionally program information is represented in a textual manner during debugging, see \autoref{fig:variablesIntellij}.
-
-% Motivation
-% Software developers spend a lot of time on debugging
-Moreover, software developers spend between 35 and 50 percent of their time validating and debugging software \cite{odellDebuggingMindsetUnderstanding2017}.
-However, a graphical representation might allow for a faster and better understanding of specific scenarios.
-% Make debugging more efficient by a better visualization of the debugging data
-Thus, research to visualize program information graphically during debugging has started, motivated by possible reductions in the time spent during debugging. 
-
-% Introduce my plugin:
-% Integrated in the most popular JAVA-IDE according to some report
-% Visualize program state graphically using object diagrams
-We have developed an \intellij{} plugin\footnote{The plugin can be found at \url{https://plugins.jetbrains.com/plugin/16851-visual-debugger}.}, which visualizes the program state as an object diagram for better program comprehension.
-% Explain the plugin shortly and link to a YouTube video. 
+Traditionally program information is represented in a textual manner during debugging (see \autoref{fig:variablesIntellij} in \autoref{sec:toolDescription}).
+Debugging tools integrated in \glspl*{ide}, such as \intellij{} and Eclipse, show a set of top level variables directly contained in the current program scope.
+However, the desired program information is often not present in the top level variables but spread out on lower-levels of potentially different variables.
+Thus, in specific scenarios a graphical representation results in faster and better understanding of the shown program information.
+% Introduce my tool
+We have developed a tool, which visualizes the current program information graphically as an object diagram for better program comprehension.
+Our open-source tool, called the \textit{visual debugger}, is integrated in \intellij{}\footnote{The tool is available in the JetBrains Marketplace at \url{https://plugins.jetbrains.com/plugin/16851-visual-debugger}.}, which is the most popular Java \gls*{ide} according to a recent report\footnote{JVM Ecosystem Report 2021: \url{https://snyk.io/jvm-ecosystem-report-2021/}}.
+Compared to other tools our visual debugger is optimized for industrial use since it is straightforward, lightweight, and can be used alongside the traditional textual debugger.
+In addition, the architecture of the tool enables reuse of the visualization component in other debugging tools.
+A demonstration of our tool is available here\footnote{\screencast}.
 
 % Paper outline
 The remainder of this paper is structured as follows.
@@ -123,6 +127,9 @@ Finally, we discuss related work in \autoref{sec:relatedWork} and conclude in \a
 
 \section{Tool description} \label{sec:toolDescription}
 We will describe our tool using the parts list model shown in \autoref{fig:partsListModel}.
+A parts list describes the decomposition of products into sub-products and basic materials.
+Given a parts list, one can calculate the monetary cost and materials needed to construct one or more pieces of the described product\footnote{This example was taken from the course on information systems taught by Michael Löwe at the University of Applied Sciences FHDW, Hanover.}.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.48\textwidth]{images/VD-parts list class diagram.pdf}
@@ -130,8 +137,8 @@ We will describe our tool using the parts list model shown in \autoref{fig:parts
     \label{fig:partsListModel}
 \end{figure}
 
-Program information during debugging is usually represented \textit{textually} in \glspl*{ide}.
-For example, \autoref{fig:variablesIntellij} shows objects during debugging in \intellij{} conforming to the parts list model. 
+\autoref{fig:variablesIntellij} shows objects during debugging in \intellij{} conforming to the parts list model. 
+The default debugger uses a textual representation for program information.
 
 \begin{figure}[h]
     \centering
@@ -210,7 +217,7 @@ Both components are open-source\cref{footnote:artifacts} and put together result
 
 \section{Related work} \label{sec:relatedWork}
 Visual debugging has been researched since the 90s \cite{baeza-yatesVisualDebuggingAutomatic1996, jerdingUsingVisualizationFoster1994, mukherjeaVisualDebuggingIntegrating1994, hansonSimpleExtensibleGraphical1997}, but most of the resulting tools are outdated by now.
-We will now describe some recent visual debugging tools and compare them to our tool.
+We will now describe recent visual debugging tools and compare them to our tool.
 
 % JIVE is comprehensive but the downside is that it offers too much functionality!
 \textit{\gls*{jive}}\footnote{\url{https://cse.buffalo.edu/jive/}} is a plugin for the Eclipse \gls*{ide} \cite{czyzDeclarativeVisualDebugging2007,k.p.FiniteStateModel2021}.
@@ -218,8 +225,8 @@ It provides interactive Java program execution visualization at different levels
 The program state is visualized as a \gls*{uml} object diagram, while the call stack is represented as a \gls*{uml} sequence diagram.
 \gls*{jive} is tightly coupled to the Eclipse \gls*{ide} and does not integrate with Eclipses debugger but rather is a debugging environment on its own.
 This approach is a significant difference to our tool, which integrates with the debugging tool of the \gls*{ide}.
-It makes \gls*{jive} powerful but complex since it is hard to understand what is going on in the multiple views provided by \gls*{jive}.
-Compared to \gls*{jive} the visual debugger tool focuses only on object diagram visualization, which makes it lightweight and straightforward to use.
+It makes \gls*{jive} powerful but complex since it is hard to understand what is happening in the multiple views provided by \gls*{jive}.
+Compared to \gls*{jive} the visual debugger tool focuses only on object diagram visualization of the current program state, which makes it lightweight and straightforward to use.
 In addition, our tool decouples debugging and visualization, such that it can be adopted to different \glspl*{ide} even based on other object-oriented programming languages than Java.
 
 % Java Visualizer
@@ -227,7 +234,7 @@ A plugin called \textit{Java Visualizer}\footnote{\url{https://plugins.jetbrains
 It visualizes the call stack and objects contained in the Java heap as a box-and-pointer diagram during a debugging session.
 However, even in simple scenarios, the visualized call stacks are long since all objects from the Java heap are visualized and not only the variables in the debugging scope.
 This leads to much noise in the visualization, especially if one is only interested in the current objects, i.e., the current system state.
-This plugin inspired us, but our tool tries to improve by showing not all the present information and allowing a user to load more relevant information if needed.
+This plugin inspired us, but our tool tries to improve by showing only relevant information and allowing a user to load more information if needed.
 
 % Debugging for distributed applications
 In \cite{kochGraphicalDebuggingDistributed2015}, the authors describe a tool to debug distributed applications.
@@ -244,7 +251,7 @@ Our tool can also be used to help students to learn Java or object-oriented prog
 
 \section{Conclusion \& future work} \label{sec:conclusion}
 % Conclude
-The main contribution is the open-source visual debugging tool we have created.
+The main contribution of this paper is the new open-source visual debugging tool, which differs from previously created tools in the following three aspects.
 First, it is integrated in \intellij{}, a modern and popular \gls*{ide} for Java software development.
 According to a recent report\footnote{JVM Ecosystem Report 2021: \url{https://snyk.io/jvm-ecosystem-report-2021/}} over 70\% of JVM developers use \intellij{}.
 In addition, the plugin received good feedback and was downloaded nearly 2000 times already\cref{footnote:pluginStats}.
@@ -254,15 +261,19 @@ Third, we aimed for excellent usability of our tool alongside present debugging 
 To do so, our tool starts automatically when debugging in \intellij{} and can be used straight away without any configuration.
 Moreover, we only show a subset of the debugging information in the debugger right away and allow the user to reload more relevant information similarly to the widely adopted textual debuggers.
 
-% Future work based on the plugin
+% Future work
 In the future we could like to improve and extend the tool in multiple ways.
 First, we want to do more field testing using our tool to gather feedback on the usability and features of the plugin.
 This should lead to continuous improvement of the tool and greater tool use, which leads to more feedback from practitioners. 
 Especially, the scalability of the tool when debugging large software systems must be investigated.
-The scalability of our visual debugger must be similar to the scalability of present textual debuggers, such that our tool can be adopted in the industry.
+The scalability of our visual debugger should be similar to the scalability of present textual debuggers, such that our tool can be adopted in the industry.
 Second, we would like to implement visual debuggers for other \glspl*{ide} and object-oriented programming languages by reusing our visualization component.
-% Third, \cite{krauterBehavioralConsistencyHeterogeneous2021} + cite ECMFA paper.
-% Future work somehow connecting to my main line of research?
+Third, we plan to reuse significant parts of our tool to debug executions of behavioral models.
+Not only source code can be executed and debugged.
+Behavioral models, for example, \gls*{uml} state-machines, Petri-Nets, or \gls{bpmn} processes come with clearly defined execution semantics \cite{krauterBehavioralConsistencyHeterogeneous2021}.
+% TODO: Cite ECMFA paper.
+When these models are used in \gls*{mde}, it can be beneficial to execute and debug them directly.
+
 
 % TODO: Comment in after acceptance and helpful feedback.
 % \section*{Acknowledgment}
