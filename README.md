@@ -6,7 +6,7 @@ The paper describes the [open-source](https://github.com/timKraeuter/VisualDebug
 # Demonstration of the Visual Debugger
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/lU_OgotweRk/0.jpg)](https://www.youtube.com/watch?v=lU_OgotweRk)
 
-Follow the [screencast](https://www.youtube.com/watch?v=lU_OgotweRk) doing the following steps:
+Follow the [demonstration](https://www.youtube.com/watch?v=lU_OgotweRk) doing the following steps:
 1. Clone the Visual Debugger [repository](https://github.com/timKraeuter/VisualDebugger) using git.
 2. Open the repository clone using IntelliJ IDEA as a new project.
 3. Install the Visual Debugger plugin from the IntelliJ IDEA marketplace (```File < Settings < Plugins``` and search for **Visual Debugger**).
