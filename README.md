@@ -21,3 +21,4 @@ The Visual Debugging API is described [here](https://github.com/timKraeuter/Visu
 - The **visualization component** of the Visual Debugger can be found [here](https://github.com/timKraeuter/object-diagram-modeler).
 - You can edit object diagrams created during debugging using my [object diagram modeler](https://timkraeuter.com/object-diagram-modeler/).
 - A short documentation of the visual debugger tool implementation can be found [here](https://github.com/timKraeuter/VisualDebugger/blob/master/documentation/README.md).
+- There is also a description of the tool on [my website](https://timkraeuter.com//visual-debugger/).
