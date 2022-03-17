@@ -131,7 +131,7 @@ Given a parts list, one can calculate the monetary cost and materials needed to 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.48\textwidth]{images/VD-parts list class diagram.pdf}
+    \includegraphics[width=0.48\textwidth]{images/VD-partsList-classes.pdf}
     \caption{Parts list class diagram}
     \label{fig:partsListModel}
 \end{figure}
@@ -158,7 +158,7 @@ Using our visual debugger tool, we obtain the object diagram\footnote{\label{foo
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.48\textwidth]{images/VD-parts list object diagram.pdf}
+    \includegraphics[width=0.48\textwidth]{images/VD-partsList-objects.pdf}
     \caption{Visual Debugger visualization comparable to \autoref{fig:variablesIntellij}}
     \label{fig:visualDebuggerVariables}
 \end{figure}
@@ -187,6 +187,7 @@ However, it is not possible to explore objects inside the embedded visualization
 % State how many downloads we have atm
 The visual debugger tool has 1804 unique downloads\footnote{\label{footnote:pluginStats}Last checked on March 8, 2022, see \cite{VisualDebuggerIntelliJ}.} and positive reviews.
 It consists of two components: the debugging and the visualization component, which we will describe in more detail in the tool architecture section.
+Both components are open-source\cref{footnote:artifacts} and when combined result in the visual debugger tool.
 
 \section{Tool architecture}  \label{sec:architecture}
 First, the \textit{debugging component} integrates with \intellij{} by automatically hooking into all started debugging processes of the \gls*{ide}.
@@ -212,8 +213,27 @@ The \textit{Visual Debugging \gls*{api}}\cref{footnote:artifacts} is based on \e
 
 Initially, a browser connects to the WebSocket server hosting the Debugger \gls*{api}, for example, the server included in our Visual Debugger plugin.
 Afterward, the browser is updated in real-time about new debugging information due to debugging actions in the \gls*{ide}, such as hitting a breakpoint or jumping to the next line in the source code.
-In addition, the visualization component allows a user to interact with the visualization to load all direct children and attributes of any shown object.
-Both components are open-source\cref{footnote:artifacts} and put together result in the visual debugger tool.
+In addition, the visualization component allows a user to interact with the visualization to load all direct children of shown objects.
+
+Debugging information, i.e., object diagram exchange is standardized by an XSD schema \cite{ArtifactsICSME2022}.
+\autoref{fig:odMetamodel} depicts the metamodel for object diagrams realized by the schema.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.488\textwidth]{images/VD-metamodel.pdf}
+    \caption{Object diagram metamodel}
+    \label{fig:odMetamodel}
+\end{figure}
+
+The \textsf{ObjectDiagram} is the root element in the schema (highlighted in green) and contains a set of \textsf{Objects} and \textsf{Links}.
+\textsf{Objects} and \textsf{Links} have a \textsf{type}, i.e., name of a class or association.
+In addition, each \textsf{Object} has a unique id provided by the debugger and a set of \textsf{attributeValues}, which have a primitive \textsf{type} and \textsf{value} modeled as strings.
+
+Besides debugging, the visualization component provides two export features.
+First, one can export object diagrams during debugging as an SVG file.
+This can be useful if an undesired program state has been reached and should be documented in a bug tracking system.
+Second, diagrams can be exported as an XML file that can be used to load and edit them in the object diagram modeler, for example, to show the actually desired program state.
+The object diagram modeler is an open-source tool to create object diagrams in the browser \cite{ObjectDiagramModeler2022}.
 
 \section{Related work} \label{sec:relatedWork}
 Visual debugging has been researched since the 90s \cite{baeza-yatesVisualDebuggingAutomatic1996, jerdingUsingVisualizationFoster1994, mukherjeaVisualDebuggingIntegrating1994, hansonSimpleExtensibleGraphical1997}, but most of the resulting tools are outdated by now.
@@ -279,7 +299,7 @@ When these models are used in \gls*{mde}, it can be beneficial to execute and de
 % \section*{Acknowledgment}
 % We want to thank the anonymous reviewers for their valuable comments and helpful suggestions.
 
-\newpage
+% \newpage
 
 % TODO: check References one by one at the end!
 \bibliographystyle{IEEEtran}
