@@ -12,7 +12,9 @@
 \usepackage{orcidlink} % Orcid links
 \usepackage{hyperref} % Urls
 \usepackage{glossaries} % Glossary
-\usepackage{cleveref} % Reference footnotes.
+\usepackage[nameinlink]{cleveref} % Reference footnotes.
+\crefname{figure}{{figure}}{figures}
+\Crefname{figure}{{Figure}}{Figures}
 \crefformat{footnote}{#2\footnotemark[#1]#3}
 \usepackage[scaled=0.9]{helvet} % Scale \textsf down
 \usepackage{flushend} % Balances columns on the last page.
@@ -38,9 +40,9 @@
 }
 \author{
     \IEEEauthorblockN{Tim Kräuter\IEEEauthorrefmark{1}\orcidlink{0000-0003-1795-0611},
+    Harald König\IEEEauthorrefmark{2}\IEEEauthorrefmark{1}\orcidlink{0000-0001-6304-6311},
     Adrian Rutle\IEEEauthorrefmark{1}\orcidlink{0000-0002-4158-1644},
-    Yngve Lamo\IEEEauthorrefmark{1}\orcidlink{0000-0001-9196-1779},
-    Harald König\IEEEauthorrefmark{2}\IEEEauthorrefmark{1}\orcidlink{0000-0001-6304-6311}
+    Yngve Lamo\IEEEauthorrefmark{1}\orcidlink{0000-0001-9196-1779}
     }
     \IEEEauthorblockA{\IEEEauthorrefmark{1}Western Norway University of Applied Sciences, Bergen, Norway}
     \IEEEauthorblockA{\IEEEauthorrefmark{2}University of Applied Sciences, FHDW, Hannover, Germany
@@ -56,8 +58,10 @@
 % Conclusion & future work: done
 % 4 pages + 1 page of only references!
 
+% TODO:
 % Terminology:
-% debugginf information vs. program information vs. current program state
+% debugging information vs. program information vs. current program state
+% source code vs program code
 \begin{abstract}
 Debugging is an essential part of software maintenance and evolution since it allows a software developer to analyze a program step by step.
 Understanding a program is required to fix potential flaws, alleviate bottlenecks, and implement new desired features.
@@ -82,7 +86,7 @@ We aim to reduce this cost by providing a novel debugging tool to software devel
 Reduced time spent on debugging can be used to implement new features, i.e., creating value for customers.
 
 % Debugging works on a textual representation of the software
-Traditionally program information is represented in a textual manner during debugging (see \autoref{fig:variablesIntellij} in \autoref{sec:toolDescription}).
+Traditionally program information is represented in a textual manner during debugging (see \cref{fig:variablesIntellij} in \cref{sec:toolDescription}).
 Debugging tools integrated with \glspl*{ide}, such as \intellij{} and Eclipse, show a set of top-level variables directly contained in the current program scope.
 However, the desired program information is often not present in the top-level variables but spread out on lower levels of potentially different variables.
 Thus, in specific scenarios, a graphical representation results in a faster and better understanding of the shown program information.
@@ -95,13 +99,13 @@ A demonstration of our tool is available online \cite{ArtifactsICSME2022}\footno
 
 % Paper outline
 The remainder of this paper is structured as follows.
-We describe the visual debugger tool in detail (\autoref{sec:toolDescription}) before explaining the tool architecture (\autoref{sec:architecture}).
-Finally, we discuss related work in \autoref{sec:relatedWork} and conclude in \autoref{sec:conclusion}.
+We describe the visual debugger tool in detail (\cref{sec:toolDescription}) before explaining the tool architecture (\cref{sec:architecture}).
+Finally, we discuss related work in \cref{sec:relatedWork} and conclude in \cref{sec:conclusion}.
 
 \section{Tool description} \label{sec:toolDescription}
-We will describe our tool using the parts list model shown in \autoref{fig:partsListModel}.
+We will describe our tool using the parts list model shown in \cref{fig:partsListModel}.
 A parts list describes the decomposition of \textsf{Products} into sub-products and basic \textsf{Materials}.
-Given a parts list, one can calculate the monetary cost and materials needed to construct one or more pieces of the described product\footnote{This example is inspired by the course on information systems taught by Michael Löwe at the University of Applied Sciences FHDW, Hanover.}.
+Given a parts list, one can calculate the monetary cost and materials needed to construct one or more pieces of the described product\footnote{This example is inspired by the course on information infrastructures taught by Michael Löwe at the University of Applied Sciences FHDW, Hannover.}.
 
 \begin{figure}[h]
     \centering
@@ -110,7 +114,7 @@ Given a parts list, one can calculate the monetary cost and materials needed to 
     \label{fig:partsListModel}
 \end{figure}
 
-\autoref{fig:variablesIntellij} shows objects during debugging in \intellij{} conforming to the parts list model. 
+\Cref{fig:variablesIntellij} shows objects during debugging in \intellij{} conforming to the parts list model. 
 The default debugger uses a textual representation for program information.
 
 \begin{figure}[h]
@@ -128,12 +132,12 @@ Our tool is one of many visual debugging tools, but we aimed for excellent usabi
 In addition, our tool is straightforward and non-intrusive, i.e., it complements textual debugging.
 The goal of our tool is to make debugging during software development as efficient as possible to increase software developer productivity.
 
-Using our visual debugger tool, we obtain the object diagram\footnote{\label{footnote:artifacts} Additional artifacts including source code, a demonstration of the visual debugger tool and a description of the Visual Debugging \acrshort*{api} can be found at \cite{ArtifactsICSME2022}.} shown in \autoref{fig:visualDebuggerVariables}, which contains the same objects and level of detail as \autoref{fig:variablesIntellij}.
+Using our visual debugger tool, we obtain the object diagram\footnote{\label{footnote:artifacts} Additional artifacts including source code, a demonstration of the visual debugger tool and a description of the Visual Debugging \acrshort*{api} can be found at \cite{ArtifactsICSME2022}.} shown in \cref{fig:visualDebuggerVariables}, which contains the same objects and level of detail as \cref{fig:variablesIntellij}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.48\textwidth]{images/VD-partsList-objects.pdf}
-    \caption{Visual Debugger visualization comparable to \autoref{fig:variablesIntellij}}
+    \caption{Visual Debugger visualization comparable to \cref{fig:variablesIntellij}}
     \label{fig:visualDebuggerVariables}
 \end{figure}
 
@@ -150,7 +154,7 @@ Textual debugging views only show the root objects (directly referenced in the d
 Similarly, we do not visualize all objects linked to the root objects, but we allow the user to configure a \textit{visualization depth}.
 The visualization depth describes how many links starting from the root objects should be followed to find objects for the initial visualization.
 Afterward, one can explore objects further by double-clicking them in the visualization just as in the textual debugger.
-For example, in \autoref{fig:visualDebuggerVariables}, one quantified component was explored further.
+For example, in \cref{fig:visualDebuggerVariables}, one quantified component was explored further.
 
 The visualization is browser-based and implemented in a standalone \textit{visualization component}, which automatically layouts the object diagram using the Eclipse Layout Kernel.
 % Embedded visualizer without interaction
@@ -174,7 +178,7 @@ Consequently, we could implement a debugging component for a different \gls*{ide
 Furthermore, the visualization component is independent of the programming language which is debugged and can potentially be reused to debug different object-oriented programming languages.
 
 % Explain the Debugging API
-The \textit{Visual Debugging \gls*{api}}\cref{footnote:artifacts} is based on \emph{WebSocket} to allow live updates about changes in the debugging information, see \autoref{fig:api}.
+The \textit{Visual Debugging \gls*{api}}\cref{footnote:artifacts} is based on \emph{WebSocket} to allow live updates about changes in the debugging information, see \cref{fig:api}.
 
 \begin{figure}[h]
     \centering
@@ -188,7 +192,7 @@ Afterward, the browser is updated in real-time about new debugging information d
 In addition, the visualization component allows a user to interact with the visualization to load all direct children of shown objects.
 
 Debugging information, i.e., object diagram exchange, is standardized by an XSD schema \cite{ArtifactsICSME2022}.
-\autoref{fig:odMetamodel} depicts the metamodel for object diagrams realized by the schema.
+\Cref{fig:odMetamodel} depicts the metamodel for object diagrams realized by the schema.
 
 \begin{figure}[h]
     \centering
@@ -241,14 +245,23 @@ It makes use of object- and sequence diagrams to represent program behavior.
 However, it is not integrated with modern \glspl*{ide} such as Eclipse or \intellij{}.
 Our tool can help students learn Java or object-oriented program execution in general, but we currently do not provide a sequence diagram visualization.
 
+Besides source code, \textit{behavioral models} can also be executed and debugged.
+For example, \gls*{uml} state-machines, Petri-Nets, or \gls*{bpmn} processes, have clearly defined execution semantics \cite{objectmanagementgroupUnifiedModelingLanguage2017, objectmanagementgroupBusinessProcessModel2013}.
+For \gls*{bpmn}, the \textit{bmpn-js token simulation} \footnote{\url{https://bpmn-io.github.io/bpmn-js-token-simulation/}} was developed, which enables token simulation of \gls*{bpmn} process models in the browser.
+The simulator can be seen as a \gls*{bpmn} debugger since one can pause activities, which will stop tokens from flowing through them, similar to breakpoints in source code.
+In general, our tool could be adapted to debug behavioral models.
+Especially, the visualization component and Visual Debugging \gls*{api} could be extended to visualize behavioral model execution.
+
 \section{Conclusion \& future work} \label{sec:conclusion}
 % Conclude
 The main contribution of this paper is the new open-source visual debugging tool, which differs from previously created tools regarding the following three aspects.
 First, it is integrated with \intellij{}, a modern and popular \gls*{ide} for Java software development.
 According to JVM Ecosystem Report 2021, over 70\% of JVM developers use \intellij{}  \cite{JVMEcosystemReport2021}.
 In addition, the plugin received good feedback and was downloaded nearly 2000 times already\cref{footnote:pluginStats}.
+
 Second, the visualization part of the tool is independent, such that it can be reused in other visual debugging tools.
 For example, one could develop a plugin for Eclipse \gls*{ide} or Visual Studio Code in the future.
+
 Third, we aimed for excellent usability of our tool alongside present debugging tools.
 Thus, it automatically starts when debugging in \intellij{} and can be used straight away without any configuration.
 Moreover, we only show a subset of the debugging information in the debugger right away and allow the user to reload more relevant information similarly to the widely adopted textual debuggers.
@@ -259,17 +272,18 @@ First, we want to do more field testing using our tool to gather feedback on the
 This should lead to continuous improvement of the tool and greater tool use, which leads to more feedback from practitioners. 
 Especially, the scalability of the tool when debugging large software systems must be investigated.
 The scalability of our visual debugger should be similar to the scalability of present textual debuggers, such that our tool can be adopted in the industry.
-Second, we plan to implement visual debuggers for other \glspl*{ide} and object-oriented programming languages by reusing our visualization component.
-Third, we plan to reuse significant parts of our tool to debug executions of behavioral models.
-Not only source code can be executed and debugged.
-Behavioral models, for example, \gls*{uml} state-machines, Petri-Nets, or \gls{bpmn} processes, come with clearly defined execution semantics \cite{krauterBehavioralConsistencyHeterogeneous2021}.
-% TODO: Cite ECMFA paper.
-When these models are used in \gls*{mde}, it can be beneficial to execute and debug them directly.
 
+Second, we plan to implement visual debuggers for other \glspl*{ide} and object-oriented programming languages by reusing our visualization component.
+First candidates are Eclipse \gls*{ide} for Java and Visual Studio Code for C\#.
+
+Third, we plan to adapt our tool to debug executions of behavioral models since not only source code can be executed and debugged.
+The \textit{bpmn-js token simulation} shows that simulation and debugging are beneficial for software developers using a specific behavioral modeling language.
+Furthermore, it is also possible to simultaneously visualize and debug multiple heterogeneous behavioral model executions in heterogeneous modeling situations \cite{krauterBehavioralConsistencyHeterogeneous2021}. % TODO: Cite ECMFA paper here.
+Debugging multiple behavioral model executions has similarities to debugging distributed applications \cite{kochGraphicalDebuggingDistributed2015}.
 % TODO: Comment in after acceptance and helpful feedback.
 % \section*{Acknowledgment}
 % We want to thank the anonymous reviewers for their valuable comments and helpful suggestions.
-
+\newpage
 % TODO: check References one by one at the end!
 \bibliographystyle{IEEEtran}
 \bibliography{bib}
