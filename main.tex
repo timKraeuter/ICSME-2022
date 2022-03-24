@@ -7,15 +7,18 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
-% My packages start
-\usepackage{orcidlink}
-\usepackage{hyperref}
-\usepackage{glossaries}
-\usepackage{cleveref} % Reference footnotes.
-\usepackage[scaled=0.9]{helvet} % Scale \textsf down
-\crefformat{footnote}{#2\footnotemark[#1]#3}
-\usepackage{flushend} % Balances columns on the last page.
 
+% My packages start
+\usepackage{orcidlink} % Orcid links
+\usepackage{hyperref} % Urls
+\usepackage{glossaries} % Glossary
+\usepackage{cleveref} % Reference footnotes.
+\crefformat{footnote}{#2\footnotemark[#1]#3}
+\usepackage[scaled=0.9]{helvet} % Scale \textsf down
+\usepackage{flushend} % Balances columns on the last page.
+% My packages end
+
+% Acronyms
 \newacronym{jive}{JIVE}{Java Interactive Visualization Environment}
 \newacronym{uml}{UML}{Unified Modeling Language}
 \newacronym{ide}{IDE}{Integrated Development Environment}
@@ -24,7 +27,6 @@
 \newacronym{bpmn}{BPMN}{Business Process Modeling Notation}
 \newcommand{\intellij}{IntelliJ IDEA}
 \newcommand{\screencast}{\cite{ArtifactsICSME2022}}
-% My packages end
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
