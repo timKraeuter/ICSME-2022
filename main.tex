@@ -25,6 +25,7 @@
 \newacronym{uml}{UML}{Unified Modeling Language}
 \newacronym{ide}{IDE}{Integrated Development Environment}
 \newacronym{api}{API}{Application Programming Interface}
+\newacronym{elk}{ELK}{Eclipse Layout Kernel}
 \newacronym{mde}{MDE}{Model-driven engineering}
 \newacronym{bpmn}{BPMN}{Business Process Modeling Notation}
 \newcommand{\intellij}{IntelliJ IDEA}
@@ -154,9 +155,12 @@ Textual debugging views only show the root objects (directly referenced in the d
 Similarly, we do not visualize all objects linked to the root objects, but we allow the user to configure a \textit{visualization depth}.
 The visualization depth describes how many links starting from the root objects should be followed to find objects for the initial visualization.
 Afterward, one can explore objects further by double-clicking them in the visualization just as in the textual debugger.
+All objects reachable by outgoing links will be included in the visualization.
 For example, in \cref{fig:visualDebuggerVariables}, one quantified component was explored further.
+In the future, it can be interesting also to load objects which have incoming links, such that one can load information with and against the link direction.
 
-The visualization is browser-based and implemented in a standalone \textit{visualization component}, which automatically layouts the object diagram using the Eclipse Layout Kernel.
+The visualization is browser-based and implemented in a standalone \textit{visualization component}, which automatically layouts the object diagram using the \gls*{elk}\footnote{\url{https://www.eclipse.org/elk/}}.
+The \gls*{elk} layouting works well but can be improved to minimize movement of unchanged objects in the visualization during debugging.
 % Embedded visualizer without interaction
 In addition, we provide a visualization based on PlantUML embedded in \intellij{}.
 However, it is not possible to explore objects inside the embedded visualization since PlantUML provides static \gls*{uml} diagrams.
@@ -256,7 +260,7 @@ Especially, the visualization component and Visual Debugging \gls*{api} could be
 % Conclude
 The main contribution of this paper is the new open-source visual debugging tool, which differs from previously created tools regarding the following three aspects.
 First, it is integrated with \intellij{}, a modern and popular \gls*{ide} for Java software development.
-According to JVM Ecosystem Report 2021, over 70\% of JVM developers use \intellij{}  \cite{JVMEcosystemReport2021}.
+According to the JVM Ecosystem Report 2021, over 70\% of JVM developers use \intellij{}  \cite{JVMEcosystemReport2021}.
 In addition, the plugin received good feedback and was downloaded nearly 2000 times already\cref{footnote:pluginStats}.
 
 Second, the visualization part of the tool is independent, such that it can be reused in other visual debugging tools.
@@ -271,7 +275,7 @@ We plan to improve and extend the tool in multiple ways in the future.
 First, we want to do more field testing using our tool to gather feedback on the usability and features of the plugin.
 This should lead to continuous improvement of the tool and greater tool use, which leads to more feedback from practitioners. 
 Especially, the scalability of the tool when debugging large software systems must be investigated.
-The scalability of our visual debugger should be similar to the scalability of present textual debuggers, such that our tool can be adopted in the industry.
+The scalability of the visual debugger should be similar to the scalability of present textual debuggers, such that our tool is ready for industrial use.
 
 Second, we plan to implement visual debuggers for other \glspl*{ide} and object-oriented programming languages by reusing our visualization component.
 First candidates are Eclipse \gls*{ide} for Java and Visual Studio Code for C\#.
@@ -279,7 +283,7 @@ First candidates are Eclipse \gls*{ide} for Java and Visual Studio Code for C\#.
 Third, we plan to adapt our tool to debug executions of behavioral models since not only source code can be executed and debugged.
 The \textit{bpmn-js token simulation} shows that simulation and debugging are beneficial for software developers using a specific behavioral modeling language.
 Furthermore, it is also possible to simultaneously visualize and debug multiple heterogeneous behavioral model executions in heterogeneous modeling situations \cite{krauterBehavioralConsistencyHeterogeneous2021}. % TODO: Cite ECMFA paper here.
-Debugging multiple behavioral model executions has similarities to debugging distributed applications \cite{kochGraphicalDebuggingDistributed2015}.
+Debugging multiple behavioral model executions simultaneously is similar to debugging distributed applications \cite{kochGraphicalDebuggingDistributed2015}.
 % TODO: Comment in after acceptance and helpful feedback.
 % \section*{Acknowledgment}
 % We want to thank the anonymous reviewers for their valuable comments and helpful suggestions.
