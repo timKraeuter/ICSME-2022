@@ -17,7 +17,7 @@
 \Crefname{figure}{{Figure}}{Figures}
 \crefformat{footnote}{#2\footnotemark[#1]#3}
 \usepackage[scaled=0.9]{helvet} % Scale \textsf down
-\usepackage{flushend} % Balances columns on the last page.
+% \usepackage{flushend} % Balances columns on the last page.
 % My packages end
 
 % Acronyms
@@ -53,11 +53,13 @@
 \maketitle
 % 4 pages + 1 page of only references!
 \begin{abstract}
-Debugging is an essential part of software maintenance and evolution since it allows a software developer to analyze program execution step by step.
+Debugging is an essential part of software maintenance and evolution since it allows software developers to analyze program execution step by step.
 Understanding a program is required to fix potential flaws, alleviate bottlenecks, and implement new desired features.
 Thus, software developers spend a large percentage of their time validating and debugging software, resulting in high software maintenance and evolution cost.
-We aim to reduce this cost by providing a novel visual debugging tool to software developers to better support them during debugging.
+We aim to reduce this cost by providing a novel visual debugging tool to software developers to foster program comprehension during debugging.
 Our debugging tool visualizes program execution information graphically as an object diagram and is fully integrated into the popular Java development environment \intellij{}.
+Moreover, the object diagram allows interactions to explore program execution information
+in more detail.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -72,7 +74,7 @@ Debugging is used to understand program control- and data flow such that a softw
 % Motivation: Reduce the time spent on debugging with better tooling!
 Thus, debugging is crucial for software maintenance and evolution, and software developers spend between 35 and 50 percent of their time validating and debugging software \cite{odellDebuggingMindsetUnderstanding2017}.
 Consequently, 50-75 percent of the total budget of software development projects is used for debugging, testing, and verification \cite{odellDebuggingMindsetUnderstanding2017}.
-We aim to reduce this cost by providing a novel debugging tool to software developers to better support them during debugging.
+We aim to reduce this cost by providing a novel debugging tool to software developers to foster program comprehension during debugging.
 Reduced time spent on debugging can be used to implement new features, i.e., create business value for customers.
 
 % Debugging works on a textual representation of the software
@@ -81,9 +83,10 @@ Debugging tools integrated with \glspl*{ide}, such as \intellij{} and Eclipse, s
 However, the desired program execution information is often not present in the top-level variables but spread out on lower levels of potentially different variables.
 Thus, in specific scenarios, a graphical representation results in a faster and better understanding of the shown program execution information.
 % Introduce my tool
-We have developed a tool that visualizes the current program execution information graphically as an object diagram for better program comprehension.
+We have developed a tool that visualizes the current program execution information graphically as an object diagram to foster program comprehension.
 This open-source tool, called the \textit{visual debugger}, is integrated with \intellij{}\footnote{The tool is available through the JetBrains Marketplace \cite{VisualDebuggerIntelliJ}.}, which is the most popular Java \gls*{ide} according to the JVM Ecosystem Report 2021 \cite{JVMEcosystemReport2021}.
-Compared to other tools, our visual debugger is optimized for industrial use since it is straightforward, lightweight, and can be used alongside the traditional textual debugger.
+Compared to other tools, our visual debugger is optimized for industrial use since it is straightforward, lightweight, and non-intrusive.
+It can be used alongside the traditional textual debugger and allows interactions to explore program execution information in more detail.
 In addition, the tool's architecture enables the reuse of the visualization component in other debugging tools.
 A demonstration of our tool is available online \cite{ArtifactsICSME2022}\footnote{Tool demonstration: \url{https://www.youtube.com/watch?v=lU_OgotweRk}}.
 
@@ -115,14 +118,15 @@ The default debugger uses a textual representation for the program execution inf
 \end{figure}
 
 We have unfolded the substructure of the \textsf{folding wall table} object to see its components, especially the first component, in more detail.
-If one is not only interested in one attribute inside one object, but rather the whole object world using the textual representation is cumbersome.
+The textual debugging representation is ideal if one is only interested in a small part of the program execution information, such as a single object and its attributes.
+However, if the goal is to understand the whole object world, i.e., multiple objects and their links, using the textual representation is not adequate.
 
 Consequently, research on visual debugging began with the goal of fostering program comprehension.
 Our tool is one of many visual debugging tools, but we aimed for excellent usability by seamlessly integrating our tool in the debugging process of the \intellij{}.
 In addition, our tool is straightforward and non-intrusive, i.e., it complements textual debugging.
 The goal of our tool is to make debugging during software development as efficient as possible to increase software developer productivity.
 
-Using our visual debugger tool, we obtain the object diagram shown in \cref{fig:visualDebuggerVariables}\footnote{\label{footnote:artifacts} Additional artifacts, including source code, a demonstration of the visual debugger tool, and a description of the Visual Debugging \acrshort*{api}, can be found in \cite{ArtifactsICSME2022}.}, which contains the same objects and level of detail as \cref{fig:variablesIntellij}.
+Using our visual debugger tool, we obtain the object diagram shown in \cref{fig:visualDebuggerVariables}\footnote{\label{footnote:artifacts} Additional artifacts, including source code, a demonstration of the visual debugger tool, and a description of the Visual Debugging \acrshort*{api}, can be found in \cite{ArtifactsICSME2022}.}, which contains the same objects and level of detail as \cref{fig:variablesIntellij}\footnote{One sees a little bit more information in \cref{fig:variablesIntellij} due to well written \textsf{toString()} methods, which are used by \intellij{}.}.
 
 \begin{figure}[h]
     \centering
@@ -240,7 +244,7 @@ Our tool can help students learn Java or object-oriented program execution in ge
 
 Besides source code, \textit{behavioral models} can also be executed and debugged.
 For example, \gls*{uml} state-machines, Petri-Nets, or \gls*{bpmn} processes, have clearly defined execution semantics \cite{objectmanagementgroupUnifiedModelingLanguage2017, objectmanagementgroupBusinessProcessModel2013}.
-For \gls*{bpmn}, the \textit{bmpn-js token simulation} \footnote{\url{https://bpmn-io.github.io/bpmn-js-token-simulation/}} was developed, enabling the token simulation of \gls*{bpmn} process models in the browser.
+For \gls*{bpmn}, the \textit{bmpn-js token simulation}\footnote{\url{https://bpmn-io.github.io/bpmn-js-token-simulation/}} was developed, enabling the token simulation of \gls*{bpmn} process models in the browser.
 The simulator can be seen as a \gls*{bpmn} debugger since one can pause activities, which will stop tokens from flowing through them, similar to breakpoints in source code.
 In general, our tool could be adapted to debug behavioral models.
 Especially, the visualization component and Visual Debugging \gls*{api} could be extended to visualize behavioral model execution.
@@ -248,16 +252,16 @@ Especially, the visualization component and Visual Debugging \gls*{api} could be
 \section{Conclusion \& future work} \label{sec:conclusion}
 % Conclude
 The main contribution of this paper is the new open-source visual debugging tool, which differs from previously created tools in the following three aspects.
-First, it is integrated with \intellij{}, a modern and popular \gls*{ide} for Java software development.
+First, it is fully integrated with \intellij{}, a modern and popular \gls*{ide} for Java software development.
 According to the JVM Ecosystem Report 2021, over 70\% of JVM developers use \intellij{}  \cite{JVMEcosystemReport2021}.
 In addition, the tool received good feedback and was downloaded nearly 2000 times already\cref{footnote:pluginStats}.
 
 Second, the visualization part of the tool is independent, such that it can be reused in other visual debugging tools.
 For example, one could develop a plugin for Eclipse \gls*{ide} or Visual Studio Code in the future.
 
-Third, we aimed for excellent usability of our tool alongside present debugging tools.
+Third, we aimed for the excellent usability of our tool alongside present debugging tools.
 Thus, it automatically starts when debugging in \intellij{} and can be used straight away without any configuration.
-Moreover, we only show a subset of the program execution information in the debugger right away and allow the user to reload more relevant information, similarly to the widely used textual debuggers.
+Moreover, we only show the most relevant program execution information in the debugger by default and allow the user to interactively display more relevant information, similarly to the widely used textual debuggers.
 
 % Future work
 We plan to improve and extend the tool in multiple ways in the future.
@@ -276,7 +280,6 @@ Debugging multiple behavioral model executions simultaneously is similar to debu
 % TODO: Comment in after acceptance and helpful feedback.
 % \section*{Acknowledgment}
 % We want to thank the anonymous reviewers for their valuable comments and helpful suggestions.
-\newpage
 \bibliographystyle{IEEEtran}
 \bibliography{bib}
 
