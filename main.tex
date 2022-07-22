@@ -17,8 +17,7 @@
 \Crefname{figure}{{Figure}}{Figures}
 \crefformat{footnote}{#2\footnotemark[#1]#3}
 \usepackage[scaled=0.9]{helvet} % Scale \textsf down
-% \usepackage{flushend} % Balances columns on the last page.
-\usepackage{listings}
+\usepackage{flushend} % Balances columns on the last page.
 % My packages end
 
 % Acronyms
@@ -159,7 +158,7 @@ The \gls*{elk} layout works well but can be improved to minimize the movement of
 In addition, we provide a visualization based on PlantUML embedded in \intellij{}.
 However, it is not possible to explore objects inside the embedded visualization since PlantUML provides static \gls*{uml} diagrams.
 
-The visual debugger tool currently has 2662 unique downloads\footnote{\label{footnote:pluginStats}Last checked on 21st of Juli, 2022, see \cite{VisualDebuggerIntelliJ}.} and only positive reviews.
+The visual debugger tool currently has 2662 unique downloads\footnote{\label{footnote:pluginStats}Last checked on the 21st of Juli, 2022, see \cite{VisualDebuggerIntelliJ}.} and only positive reviews.
 It consists of the debugging and the visualization component, which we will describe in more detail in the tool architecture section.
 Both components are open-source\cref{footnote:artifacts} and, when combined, result in the visual debugger tool.
 
@@ -171,7 +170,6 @@ Unit tests are usually structured according to the \textit{Arrange-Act-Assert} (
 The \textbf{Arrange} section sets up the unit test context by, for example, initializing a set of needed objects.
 Afterward, in the \textbf{Act} section, the method under test is invoked.
 Finally, the \textbf{Assert} section verifies that the outcome is as expected.
-In Behavior-driven development, the terms \textit{Given-When-Then} are used instead of Arrange-Act-Assert, but the same pattern is followed.
 
 \Cref{fig:exampleUnitTest} depicts a \textit{failing} unit test for the parts list model introduced earlier following the AAA Pattern.
 In the Arrange section, the objects according to the variables view in \cref{fig:visualDebuggerVariables} \textit{including} the greyed-out part, are created.
@@ -179,23 +177,23 @@ In the Arrange section, the objects according to the variables view in \cref{fig
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.488\textwidth]{images/example.png}
-    \caption{Example unit test for the parts list in \cref{fig:visualDebuggerVariables}}
+    \caption{Example java unit test for the parts list in \cref{fig:visualDebuggerVariables}}
     \label{fig:exampleUnitTest}
 \end{figure}
 
 In this typical situation, the visual debugger tool can quickly provide an overview of the unit tests context created in the Arrange section, i.e., the object world which was set up.
-One can set a breakpoint at the start of the Assert section, which will lead to the visualization shown in \cref{fig:visualDebuggerVariables} including another object containing the computed value from the Act section.
+One can set a breakpoint at the start of the Assert section, which will lead to the visualization shown in \cref{fig:visualDebuggerVariables}, including another object containing the computed value from the Act section.
 For the example in \cref{fig:exampleUnitTest}, a visualization depth of two or higher is needed.
 Otherwise, the first level of objects must be explored one level deep.
 
 The test case is wrong in this example since the expected cost must be increased by 15.
-For example, the four hinges contained in the folding wall table have been counted as one when the expected price was manually computed.
+For example, the four hinges in the folding wall table have been counted as one when the expected price was manually computed.
 If the test case had been correct, debugging would continue to the invoked method in the Act section.
 Visual debugging can be used and provide value even if the search for a bug continues.
 Our current intuition is that visual debugging is most useful when multiple objects and their links determine the outcome of operations, as in the parts list model.
 
 % Can be used anywhere where debugging is used
-Debugging failing unit tests is only one possible usage scenario for our tool since it can be used anytime traditional textual debugging is applicable.
+Debugging failing unit tests is not our tool's only possible usage scenario since it can be used anytime traditional textual debugging is applicable.
 If desired, one could even use textual and visual debugging simultaneously.
 
 \section{Tool architecture}  \label{sec:architecture}
