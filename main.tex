@@ -189,11 +189,11 @@ Otherwise, the first level of objects must be explored one level deep.
 The test case is wrong in this example since the expected cost must be increased by 15.
 For example, the four hinges in the folding wall table have been counted as one when the expected price was manually computed.
 If the test case had been correct, debugging would continue to the invoked method in the Act section.
-Visual debugging can be used and provide value even if the search for a bug continues.
-Our current intuition is that visual debugging is most useful when multiple objects and their links determine the outcome of operations, as in the parts list model.
+Obviously, visual debugging can also help understand control and data flow in methods.
 
 % Can be used anywhere where debugging is used
 Debugging failing unit tests is not our tool's only possible usage scenario since it can be used anytime traditional textual debugging is applicable.
+For example, to understand the current codebase and then extend it with new features. 
 If desired, one could even use textual and visual debugging simultaneously.
 
 \section{Tool architecture}  \label{sec:architecture}
@@ -275,6 +275,10 @@ The visualization component can then show the different debugging views separate
 It makes use of object- and sequence diagrams to represent program behavior.
 However, it is not integrated with modern \glspl*{ide} such as Eclipse or \intellij{}.
 Our tool can help students learn Java or object-oriented program execution in general, but we currently do not provide a sequence diagram visualization.
+
+The Data Display Debugger (DDD) provides a graphical data visualization that can be explored incrementally
+and interactively, similar to our approach \cite{zellerDDDFreeGraphical1996}.
+However, the tool is not integrated with modern \gls*{ide}s.
 
 Besides source code, \textit{behavioral models} can also be executed and debugged.
 For example, \gls*{uml} state-machines, Petri-Nets, or \gls*{bpmn} processes, have clearly defined execution semantics \cite{objectmanagementgroupUnifiedModelingLanguage2017, objectmanagementgroupBusinessProcessModel2013}.
