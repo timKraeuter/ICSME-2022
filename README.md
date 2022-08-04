@@ -1,6 +1,6 @@
 # The Visual Debugger Tool
 
-This repository contains the sources of [the paper](./visual-debugger.pdf) submitted to the [International Conference on Software Maintenance and Evolution (ICSME) 2022](https://cyprusconferences.org/icsme2022/) and associated artifacts.
+This repository contains the sources of [a paper](./visual-debugger.pdf) accepted by the [International Conference on Software Maintenance and Evolution (ICSME) 2022](https://cyprusconferences.org/icsme2022/) and associated artifacts.
 The paper describes the [open-source](https://github.com/timKraeuter/VisualDebugger) [Visual Debugger](https://plugins.jetbrains.com/plugin/16851-visual-debugger) Tool.
 
 # Demonstration of the Visual Debugger
