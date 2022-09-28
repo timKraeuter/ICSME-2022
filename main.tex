@@ -29,7 +29,6 @@
 \newacronym{mde}{MDE}{Model-driven engineering}
 \newacronym{bpmn}{BPMN}{Business Process Modeling Notation}
 \newcommand{\intellij}{IntelliJ IDEA}
-\newcommand{\screencast}{\cite{ArtifactsICSME2022}}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -125,7 +124,7 @@ Our tool is one of many visual debugging tools, but we aimed for excellent usabi
 In addition, our tool is straightforward and non-intrusive, i.e., it complements textual debugging.
 The goal of our tool is to make debugging during software development as efficient as possible to increase software developer productivity.
 
-Using our visual debugger tool, we obtain the object diagram shown in \cref{fig:visualDebuggerVariables}\footnote{\label{footnote:artifacts} Additional artifacts, including source code, a demonstration of the visual debugger tool, and a description of the Visual Debugging \acrshort*{api}, can be found in \cite{ArtifactsICSME2022}.}.
+Using our visual debugger tool, we obtain the object diagram shown in \cref{fig:visualDebuggerVariables}\footnote{\label{footnote:artifacts} Additional artifacts, including source code, a demonstration of the visual debugger tool, and a description of the Visual Debugging \acrshort*{api}, can be found in \cite{timkrauterArtifactsICSME2022}.}.
 It contains the same objects and level of detail as \cref{fig:variablesIntellij}\footnote{One sees a little more information in \cref{fig:variablesIntellij} due to well-written \textsf{toString()} methods, which are used by \intellij{}.} when ignoring the greyed-out part, which we return to later.
 
 \begin{figure}[h]
@@ -200,11 +199,11 @@ If desired, one could even use textual and visual debugging simultaneously.
 First, the \textit{debugging component} integrates with \intellij{} by automatically hooking into all started debugging processes of the \gls*{ide}.
 The goal of the debugging component is to obtain the current program execution information from \intellij{} and pass it on to the visualization component.
 In addition, the debugging component offers a method to load detailed information for individual objects in the current debugging scope, as described earlier.
-The debugging component is written in Java, and its code quality and security are continuously checked using static code analysis based on SonarCloud and unit tests \cite{ArtifactsICSME2022}.
+The debugging component is written in Java, and its code quality and security are continuously checked using static code analysis based on SonarCloud and unit tests \cite{timkrauterArtifactsICSME2022}.
 
 Second, the \textit{visualization component} represents the program execution information as an object diagram to ease program understanding.
 Moreover, it allows interaction to load additional program execution information for the currently shown objects.
-The visualization component is \emph{browser-based} (JavaScript) and relies on a fixed \emph{Visual Debugging \gls*{api}} \cite{ArtifactsICSME2022}.
+The visualization component is \emph{browser-based} (JavaScript) and relies on a fixed \emph{Visual Debugging \gls*{api}} \cite{timkrauterArtifactsICSME2022}.
 Consequently, we could implement a debugging component for a different \gls*{ide}, such as Eclipse, and reuse the visualization component.
 Furthermore, the visualization component is independent of the programming language, which is debugged and can potentially be reused to debug different object-oriented programming languages.
 
@@ -222,7 +221,7 @@ Initially, a browser connects to the WebSocket server hosting the Visual Debugge
 Afterward, the browser is updated in real-time about new program execution information due to debugging actions in the \gls*{ide}, such as hitting a breakpoint or jumping to the next line in the source code.
 In addition, the visualization component allows a user to interact with the visualization to load all direct children of shown objects.
 
-Sending program execution information, i.e., object diagram exchange, is standardized by an XSD schema \cite{ArtifactsICSME2022}.
+Sending program execution information, i.e., object diagram exchange, is standardized by an XSD schema \cite{timkrauterArtifactsICSME2022}.
 \Cref{fig:odMetamodel} depicts the metamodel for object diagrams realized by the schema.
 
 \begin{figure}[h]
